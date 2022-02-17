@@ -46,7 +46,7 @@ exports.enviadoEmail = (req, res, nodemailer) => {
 
 async function dadosArrumados(dados) {
   const dadosAntigos = dados.projects[0]
-  if (dadosAntigos == undefined) return console.log("Não um projeto com esté nome !")
+  if (dadosAntigos == undefined) return console.log("Não ah projeto com esté nome !")
   const resultado = await axios.get(url + `issues/${dadosAntigos.id}.json`)
   if (resultado.data == "") return console.log("Não existe nenhum issues com esté ID")
   let objetoNovo = { ...dadosAntigos, ...resultado.data }
