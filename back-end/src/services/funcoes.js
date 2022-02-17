@@ -34,7 +34,7 @@ exports.enviadoEmail = (req, res, nodemailer) => {
 
   transporter.sendMail({
     from: user,
-    to: "gamefivebr@gmail.com",
+    to: "Email.teste@gmail.com",
     subject: "Olá, teste enviador de e-mail",
     text: "Olá, teste enviador e-mail"
   }).then(info => {
