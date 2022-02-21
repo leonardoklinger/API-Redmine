@@ -1,11 +1,13 @@
 const app = require("express")()
+const express = require("express")
 const nodemailer = require("nodemailer")
 const cors = require("cors")
 const funcoes = require("./src/services/funcoes")
 require('dotenv').config()
 
 app.use(cors())
-app.get("/todosProjetos", (req, res) => {
+app.use(express.json())
+app.post("/todosProjetos/", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   funcoes.todosProjetos(req, res)
 })
@@ -22,7 +24,7 @@ app.get("/membros/:idProjeto", (req, res) => {
   funcoes.membrosProjeto(idProjeto, req, res)
 })
 
-app.get("/enviarEmail", (req, res) => {
+app.post("/enviarEmail", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   funcoes.enviadoEmail(req, res, nodemailer)
 })

@@ -4,7 +4,8 @@ const url = "http://localhost:5050/"
 export default createStore({
   state: {
     tarefas: [],
-    tarefa: []
+    tarefa: [],
+    erros: []
   },
   mutations: {
     listarTodosProjetos(state, payload) {
@@ -12,6 +13,9 @@ export default createStore({
     },
     projetoEspecifico(state, payload) {
       state.tarefa = payload
+    },
+    errosProjeto(state, payload) {
+      state.erros = payload
     }
   },
   actions: {
@@ -23,6 +27,8 @@ export default createStore({
     projetoEspecifico(context, payload) {
       axios.get(`${url}projetoEspecifico/${payload}`).then(resp => {
         context.commit('projetoEspecifico', resp.data)
+      }).catch((error) => {
+        context.commit('errosProjeto', error.response.status)
       })
     }
   }

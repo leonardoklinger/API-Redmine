@@ -1,7 +1,19 @@
 <template>
-  <input type="text" v-model="resultado" />
-  <button v-on:click="teste">Buscar</button>
-  <div class="X" v-if="tarefa !=''">
+{{erros}}
+  <div v-if="tarefa == ''" class="alert alert-primary" role="alert">
+        Projeto Especifico vázio !
+  </div>
+  <div v-if="verificar402 == true" class="alert alert-danger" role="alert">
+        Não existe nenhum projeto com o nome -> {{resultadoPerma}}
+</div>
+<div v-if="verificar404 == true" class="alert alert-warning" role="alert">
+        Não existe nenhuma Issue com o nome -> {{resultadoPerma}}
+</div>
+  <div class="inputsCss">
+      <input type="text" v-model="resultado" placeholder="Nome do projeto"/>
+      <button v-on:click="teste">Buscar</button>
+  </div>
+  <div class="X" v-if="tarefa != ''">
     <h1>Projeto Especifico </h1>
     <ul class="SG">
       <li class="sgLi">
@@ -34,21 +46,62 @@ export default {
   data() {
     return {
       resultado: "",
+      resultadoPerma: "",
+      verificar402: Boolean,
+      verificar404: Boolean
     };
   },
   methods: {
     ...mapActions(["projetoEspecifico"]),
-    teste() {
-      this.projetoEspecifico(this.resultado);
+    async teste() {
+      console.log(this.erros)
+      this.resultadoPerma = this.resultado
+      this.projetoEspecifico(this.resultado)
+
+/*       switch (this.erros) {
+        case 402:
+          this.verificar402 = true
+          setTimeout(() => {
+            this.verificar402 = false
+          }, 2000)
+          break;
+        case 404:
+          this.verificar404 = true
+          setTimeout(() => {
+            this.verificar404 = false
+          }, 2000)
+          break;
+        default:
+          break;
+      } */
     },
   },
   computed: {
-    ...mapState(["tarefa"]),
+    ...mapState(["tarefa", "erros"]),
   },
 };
 </script>
 
 <style scoped>
+.inputsCss {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.inputsCss button {
+  background-color: #518bc2;
+  border: none;
+  width: 80px;
+  height: 30px;
+  margin-left: 10px;
+  color: white;
+}
+
+.inputsCss button:hover {
+  opacity: 80%;
+  transition: 0.4s;
+}
+
 body{
   padding: 0 2%;
   color: #2e3e50;
