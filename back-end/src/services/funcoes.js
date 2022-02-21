@@ -73,12 +73,15 @@ async function todosProjetosFiltro(dados, res, req) {
   const Data = dados.projects
   switch (filtro) {
     case 1:
+      //Todos projetos
       res.json(Data)
       break;
     case 2:
+      //Pela data
       res.json(Data.filter(x => x.created_on.slice(0, 10) == data))
       break;
     case 3:
+      //Pelo usuario atribuido
       let array = []
       for(let i = 0; i < Data.length; i++) {
         if(await membrosProjeto(Data[i].id, user) != undefined) {
